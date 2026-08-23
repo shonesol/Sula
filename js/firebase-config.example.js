@@ -13,8 +13,8 @@ export const firebaseConfig = {
 };
 
 export const cloudinaryConfig = {
-  cloudName: "your_cloud_name",
-  uploadPreset: "chichi_unsigned",
-  itineraryFolder: "chichi-safaris/itineraries",
-  galleryFolder: "chichi-safaris/gallery"
+  cloudName: "ziudh5iv",
+  uploadPreset: "chichi_gallery",
+  itineraryFolder: "chichi/itineraries",
+  galleryFolder: "chichi/gallery"
 };
