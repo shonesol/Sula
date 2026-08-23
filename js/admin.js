@@ -49,7 +49,7 @@ function isConfigPlaceholder() {
     !firebaseConfig.apiKey ||
     firebaseConfig.apiKey === "YOUR_API_KEY" ||
     !cloudinaryConfig.cloudName ||
-    cloudinaryConfig.cloudName === "YOUR_CLOUD_NAME"
+    cloudinaryConfig.cloudName === "ziudh5iv"
   );
 }
 
