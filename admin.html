@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Chichi Safaris</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #f0ece6; min-height: 100vh; }
+    .admin-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-top: 1rem;
+    }
+    .admin-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--dark);
+    }
+    .card-panel {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .card-panel h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 1.25rem;
+      color: var(--dark);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--muted);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--cream);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .status {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      display: none;
+    }
+    .status.success { display: block; background: #e8f5e9; color: #2e7d32; }
+    .status.error { display: block; background: #fce4ec; color: #c62828; }
+    .status.info { display: block; background: #e3f2fd; color: #1565c0; }
+    #login-section, #dashboard { display: none; }
+    .preview-box {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .preview-box img, .preview-box video {
+      max-width: 160px;
+      max-height: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+      font-size: 0.95rem;
+    }
+    .list-item:last-child { border-bottom: none; }
+    .btn-danger {
+      background: #c62828;
+      color: #fff;
+      border: none;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .btn-danger:hover { background: #b71c1c; }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tab-btn {
+      padding: 0.55rem 1.2rem;
+      border: 2px solid var(--dark);
+      background: transparent;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .tab-btn.active {
+      background: var(--dark);
+      color: #fff;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .user-bar {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+  <!-- Cloudinary Upload Widget -->
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <div>
+        <span class="logo-text" style="color: var(--gold);">CHICHI</span>
+        <span class="logo-sub" style="color: var(--dark); letter-spacing: 0.2em;">ADMIN</span>
+      </div>
+      <a href="index.html" class="btn btn-outline-dark" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">← Back to site</a>
+    </div>
+
+    <!-- LOGIN -->
+    <section id="login-section" class="card-panel">
+      <h2>Admin Login</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required placeholder="admin@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn btn-gold full">Sign In</button>
+        <div id="login-status" class="status"></div>
+      </form>
+      <p style="margin-top:1.25rem;font-size:0.85rem;color:var(--muted);">
+        Create an admin user in Firebase Console → Authentication → Users (Email/Password).
+      </p>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <p class="user-bar">Signed in as <strong id="user-email"></strong></p>
+        <button id="logout-btn" class="btn btn-outline-dark" style="padding:0.4rem 1rem;font-size:0.85rem;">Log out</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="itinerary">Itineraries</button>
+        <button class="tab-btn" data-tab="media">Photos & Videos</button>
+        <button class="tab-btn" data-tab="manage">Manage</button>
+      </div>
+
+      <!-- TAB: Upload Itinerary -->
+      <div id="tab-itinerary" class="tab-content active card-panel">
+        <h2>Upload Safari Itinerary</h2>
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.25rem;">
+          Data is saved to <strong>Firestore</strong> collection <code>itineraries</code>. Image is uploaded to Cloudinary first.
+        </p>
+        <form id="itinerary-form">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" id="it-title" required placeholder="e.g. Classic Serengeti" />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="it-description" rows="3" required placeholder="Short description of the safari…"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Duration</label>
+            <input type="text" id="it-duration" required placeholder="e.g. 7 Days" />
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" id="it-price" required placeholder="e.g. From $2,850" />
+          </div>
+          <div class="form-group">
+            <label>Cover Image</label>
+            <button type="button" id="upload-itinerary-image" class="btn btn-outline-dark" style="width:auto;">Upload Image to Cloudinary</button>
+            <input type="hidden" id="it-image-url" />
+            <div id="it-image-preview" class="preview-box"></div>
+          </div>
+          <button type="submit" class="btn btn-gold full" style="margin-top:0.5rem;">Save Itinerary to Firestore</button>
+          <div id="itinerary-status" class="status"></div>
+        </form>
+      </div>
+
+      <!-- TAB: Upload Media -->
+      <div id="tab-media" class="tab-content card-panel">
+        <h2>Upload Photos or Videos</h2>
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.25rem;">
+          Files are stored on <strong>Cloudinary</strong>. Metadata (URL + type) is saved to Firestore collection <code>gallery</code>.
+        </p>
+        <button type="button" id="upload-gallery-media" class="btn btn-gold">Open Cloudinary Upload Widget</button>
+        <div id="media-preview" class="preview-box"></div>
+        <div id="media-status" class="status"></div>
+      </div>
+
+      <!-- TAB: Manage existing -->
+      <div id="tab-manage" class="tab-content card-panel">
+        <h2>Manage Content</h2>
+        <h3 style="font-size:1.05rem;margin:1rem 0 0.5rem;">Itineraries</h3>
+        <div id="itineraries-list"><p class="loading">Loading…</p></div>
+        <h3 style="font-size:1.05rem;margin:1.5rem 0 0.5rem;">Gallery Items</h3>
+        <div id="gallery-list"><p class="loading">Loading…</p></div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      deleteDoc,
+      doc,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+    // ─────────────────────────────────────────────────────────────
+    // REPLACE WITH YOUR OWN VALUES
+    // ─────────────────────────────────────────────────────────────
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Cloudinary – create an UNSIGNED upload preset in Cloudinary Console
+    // Settings → Upload → Upload presets → Add upload preset (Signing mode: Unsigned)
+    const CLOUDINARY_CLOUD_NAME = "YOUR_CLOUD_NAME";
+    const CLOUDINARY_UPLOAD_PRESET = "YOUR_UNSIGNED_PRESET";
+    // Optional folder names
+    const CLOUDINARY_ITINERARY_FOLDER = "chichi-safaris/itineraries";
+    const CLOUDINARY_GALLERY_FOLDER = "chichi-safaris/gallery";
+
+    // ─────────────────────────────────────────────────────────────
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginSection = document.getElementById("login-section");
+    const dashboard = document.getElementById("dashboard");
+    const loginStatus = document.getElementById("login-status");
+    const userEmailEl = document.getElementById("user-email");
+
+    // Auth state
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginSection.style.display = "none";
+        dashboard.style.display = "block";
+        userEmailEl.textContent = user.email;
+        loadManageLists();
+      } else {
+        loginSection.style.display = "block";
+        dashboard.style.display = "none";
+      }
+    });
+
+    // Login
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      showStatus(loginStatus, "Signing in…", "info");
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showStatus(loginStatus, "Success!", "success");
+      } catch (err) {
+        showStatus(loginStatus, err.message, "error");
+      }
+    });
+
+    // Logout
+    document.getElementById("logout-btn").addEventListener("click", () => signOut(auth));
+
+    // Tabs
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+      });
+    });
+
+    // ── Cloudinary Upload Widget (Itinerary image) ───────────────
+    let itineraryWidget = null;
+    function openItineraryUpload() {
+      if (!CLOUDINARY_CLOUD_NAME || CLOUDINARY_CLOUD_NAME === "YOUR_CLOUD_NAME") {
+        alert("Please set CLOUDINARY_CLOUD_NAME and CLOUDINARY_UPLOAD_PRESET in admin.html");
+        return;
+      }
+      if (!itineraryWidget) {
+        itineraryWidget = cloudinary.createUploadWidget(
+          {
+            cloudName: CLOUDINARY_CLOUD_NAME,
+            uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+            folder: CLOUDINARY_ITINERARY_FOLDER,
+            sources: ["local", "url", "camera"],
+            multiple: false,
+            maxFiles: 1,
+            resourceType: "image",
+            clientAllowedFormats: ["jpg", "jpeg", "png", "webp", "gif"],
+          },
+          (error, result) => {
+            if (!error && result && result.event === "success") {
+              const url = result.info.secure_url;
+              document.getElementById("it-image-url").value = url;
+              document.getElementById("it-image-preview").innerHTML =
+                `<img src="${url}" alt="Preview" />`;
+            }
+          }
+        );
+      }
+      itineraryWidget.open();
+    }
+    document.getElementById("upload-itinerary-image").addEventListener("click", openItineraryUpload);
+
+    // ── Save Itinerary to Firestore ──────────────────────────────
+    document.getElementById("itinerary-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById("itinerary-status");
+      const imageUrl = document.getElementById("it-image-url").value;
+
+      if (!imageUrl) {
+        showStatus(statusEl, "Please upload a cover image first.", "error");
+        return;
+      }
+
+      const data = {
+        title: document.getElementById("it-title").value.trim(),
+        description: document.getElementById("it-description").value.trim(),
+        duration: document.getElementById("it-duration").value.trim(),
+        price: document.getElementById("it-price").value.trim(),
+        imageUrl,
+        createdAt: serverTimestamp(),
+      };
+
+      showStatus(statusEl, "Saving to Firestore…", "info");
+      try {
+        await addDoc(collection(db, "itineraries"), data);
+        showStatus(statusEl, "Itinerary saved successfully!", "success");
+        e.target.reset();
+        document.getElementById("it-image-url").value = "";
+        document.getElementById("it-image-preview").innerHTML = "";
+        loadManageLists();
+      } catch (err) {
+        console.error(err);
+        showStatus(statusEl, "Error: " + err.message, "error");
+      }
+    });
+
+    // ── Cloudinary Upload Widget (Gallery photos/videos) ─────────
+    let galleryWidget = null;
+    function openGalleryUpload() {
+      if (!CLOUDINARY_CLOUD_NAME || CLOUDINARY_CLOUD_NAME === "YOUR_CLOUD_NAME") {
+        alert("Please set CLOUDINARY_CLOUD_NAME and CLOUDINARY_UPLOAD_PRESET in admin.html");
+        return;
+      }
+      if (!galleryWidget) {
+        galleryWidget = cloudinary.createUploadWidget(
+          {
+            cloudName: CLOUDINARY_CLOUD_NAME,
+            uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+            folder: CLOUDINARY_GALLERY_FOLDER,
+            sources: ["local", "url", "camera"],
+            multiple: true,
+            maxFiles: 10,
+            resourceType: "auto", // images + videos
+          },
+          async (error, result) => {
+            if (!error && result && result.event === "success") {
+              const info = result.info;
+              const isVideo = info.resource_type === "video";
+              const url = info.secure_url;
+              const publicId = info.public_id;
+
+              // Save metadata to Firestore
+              try {
+                await addDoc(collection(db, "gallery"), {
+                  url,
+                  publicId,
+                  type: isVideo ? "video" : "image",
+                  width: info.width || null,
+                  height: info.height || null,
+                  createdAt: serverTimestamp(),
+                });
+                showStatus(
+                  document.getElementById("media-status"),
+                  `${isVideo ? "Video" : "Image"} uploaded and saved!`,
+                  "success"
+                );
+                const preview = document.getElementById("media-preview");
+                if (isVideo) {
+                  preview.insertAdjacentHTML("beforeend", `<video src="${url}" controls muted></video>`);
+                } else {
+                  preview.insertAdjacentHTML("beforeend", `<img src="${url}" alt="Uploaded" />`);
+                }
+                loadManageLists();
+              } catch (err) {
+                showStatus(document.getElementById("media-status"), "Firestore error: " + err.message, "error");
+              }
+            }
+          }
+        );
+      }
+      galleryWidget.open();
+    }
+    document.getElementById("upload-gallery-media").addEventListener("click", openGalleryUpload);
+
+    // ── Manage lists (load + delete) ─────────────────────────────
+    async function loadManageLists() {
+      // Itineraries
+      const itList = document.getElementById("itineraries-list");
+      try {
+        const q = query(collection(db, "itineraries"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          itList.innerHTML = "<p style='opacity:0.6'>No itineraries yet.</p>";
+        } else {
+          itList.innerHTML = "";
+          snap.forEach((d) => {
+            const data = d.data();
+            const row = document.createElement("div");
+            row.className = "list-item";
+            row.innerHTML = `
+              <span><strong>${escapeHtml(data.title)}</strong> — ${escapeHtml(data.duration || "")} · ${escapeHtml(data.price || "")}</span>
+              <button class="btn-danger" data-col="itineraries" data-id="${d.id}">Delete</button>
+            `;
+            itList.appendChild(row);
+          });
+        }
+      } catch (err) {
+        itList.innerHTML = `<p class="status error">Error loading: ${err.message}</p>`;
+      }
+
+      // Gallery
+      const gList = document.getElementById("gallery-list");
+      try {
+        const q = query(collection(db, "gallery"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          gList.innerHTML = "<p style='opacity:0.6'>No gallery items yet.</p>";
+        } else {
+          gList.innerHTML = "";
+          snap.forEach((d) => {
+            const data = d.data();
+            const row = document.createElement("div");
+            row.className = "list-item";
+            const thumb = data.type === "video"
+              ? `<video src="${data.url}" style="width:48px;height:36px;object-fit:cover;border-radius:4px;" muted></video>`
+              : `<img src="${data.url}" style="width:48px;height:36px;object-fit:cover;border-radius:4px;" alt="" />`;
+            row.innerHTML = `
+              <span style="display:flex;align-items:center;gap:0.6rem;">${thumb} ${data.type}</span>
+              <button class="btn-danger" data-col="gallery" data-id="${d.id}">Delete</button>
+            `;
+            gList.appendChild(row);
+          });
+        }
+      } catch (err) {
+        gList.innerHTML = `<p class="status error">Error loading: ${err.message}</p>`;
+      }
+
+      // Attach delete handlers
+      document.querySelectorAll(".btn-danger").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          if (!confirm("Delete this item?")) return;
+          try {
+            await deleteDoc(doc(db, btn.dataset.col, btn.dataset.id));
+            loadManageLists();
+          } catch (err) {
+            alert("Delete failed: " + err.message);
+          }
+        });
+      });
+    }
+
+    function showStatus(el, msg, type) {
+      el.textContent = msg;
+      el.className = "status " + type;
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str || "";
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
