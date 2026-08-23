@@ -15,9 +15,8 @@ export const firebaseConfig = {
 
 // ── Cloudinary (Dashboard → Cloud name + unsigned upload preset)
 export const cloudinaryConfig = {
-  cloudName: "YOUR_CLOUD_NAME",
-  uploadPreset: "YOUR_UNSIGNED_PRESET",
-  // Optional folders (created automatically on first upload)
-  itineraryFolder: "chichi-safaris/itineraries",
-  galleryFolder: "chichi-safaris/gallery"
+  cloudName: "ziudh5iv",
+  uploadPreset: "chichi_gallery",
+  itineraryFolder: "chichi/itineraries",
+  galleryFolder: "chichi/gallery"
 };
