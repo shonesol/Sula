@@ -47,7 +47,7 @@ function escapeHtml(str) {
 function isConfigPlaceholder() {
   return (
     !firebaseConfig.apiKey ||
-    firebaseConfig.apiKey === "YOUR_API_KEY" ||
+    firebaseConfig.apiKey === "AIzaSyC8DBBtpGJZbZ4Pc-Sv1pd6agiMCFA8_nM" ||
     !cloudinaryConfig.cloudName ||
     cloudinaryConfig.cloudName === "ziudh5iv"
   );
