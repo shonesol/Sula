@@ -4,12 +4,19 @@
 // ============================================================
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  authDomain: "chichi-safaris.firebaseapp.com",
-  projectId: "chichi-safaris",
-  storageBucket: "chichi-safaris.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456"
+  apiKey: "AIzaSyC8DBBtpGJZbZ4Pc-Sv1pd6agiMCFA8_nM",
+
+  authDomain: "chichi-811d8.firebaseapp.com",
+
+  projectId: "chichi-811d8",
+
+  storageBucket: "chichi-811d8.firebasestorage.app",
+
+  messagingSenderId: "728136637083",
+
+  appId: "1:728136637083:web:0ed308ae030a703a3d043e",
+
+  measurementId: "G-Q3GQ4MWHLK"
 };
 
 export const cloudinaryConfig = {
