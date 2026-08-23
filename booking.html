@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Safari | Chichi Safaris</title>
+  <link rel="icon" href="logo.jpg" type="image/jpeg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">
+        <img src="logo.jpg" alt="Chichi Safaris" class="logo-img" />
+        <div class="logo-text-wrap">
+          <span class="logo-text">CHICHI</span>
+          <span class="logo-sub">SAFARIS</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="safaris.html">Safaris</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="guides.html">Guides</a></li>
+          <li><a href="booking.html">Book</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <a href="booking.html" class="btn btn-gold">Book Now</a>
+    </div>
+  </header>
+
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>Book Your Safari</h1>
+      <p>Fill in the form — your enquiry is sent straight to our WhatsApp for a fast personal reply.</p>
+    </div>
+  </section>
+  <section class="page-content">
+    <div class="container booking-layout">
+      <div class="booking-info">
+        <h2>How booking works</h2>
+        <p>1. Complete the form with your details and preferred safari.</p>
+        <p>2. Click <strong>Send to WhatsApp</strong> — a message opens with everything filled in.</p>
+        <p>3. Send the message to <strong>+256 702 094 292</strong>.</p>
+        <p>4. Our team replies to confirm availability and next steps.</p>
+        <p style="margin-top:1.5rem;">Prefer email? <a href="contact.html">Contact us here</a>.</p>
+        <p><a href="safaris.html">Browse safari packages →</a></p>
+      </div>
+      <form class="contact-form" id="booking-form">
+        <div class="form-row">
+          <div class="form-group" style="margin:0;">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Your name" />
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="you@email.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone / WhatsApp</label>
+          <input type="tel" id="phone" name="phone" placeholder="+256..." />
+        </div>
+        <div class="form-group">
+          <label for="safari">Safari / Package</label>
+          <input type="text" id="safari" name="safari" placeholder="e.g. Classic Serengeti" />
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0;">
+            <label for="dates">Preferred Dates</label>
+            <input type="text" id="dates" name="dates" placeholder="e.g. June 2026" />
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label for="guests">Number of Guests</label>
+            <input type="text" id="guests" name="guests" placeholder="e.g. 2 adults" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us more about your ideal trip..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold full">Send to WhatsApp</button>
+        <p style="font-size:0.85rem;color:var(--muted);margin-top:0.75rem;text-align:center;">
+          Opens WhatsApp chat with +256 702 094 292
+        </p>
+      </form>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="logo.jpg" alt="Chichi Safaris" class="logo-img" />
+          <div class="logo-text-wrap">
+            <span class="logo-text">CHICHI</span>
+            <span class="logo-sub">SAFARIS</span>
+          </div>
+        </a>
+        <p>Authentic African safaris rooted in respect for wildlife and local communities. Based in Jinja, Uganda.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <a href="safaris.html">Safaris</a>
+        <a href="destinations.html">Destinations</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="guides.html">Our Guides</a>
+        <a href="conservation.html">Conservation</a>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+        <a href="booking.html">Book a Safari</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 Chichi Safaris. All rights reserved.</p>
+        <div class="site-footer-links">
+          <a href="terms.html">Terms &amp; Conditions</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/whatsapp-booking.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const safari = params.get("safari");
+  if (safari) document.getElementById("safari").value = safari;
+</script>
+</body>
+</html>
