@@ -6,203 +6,45 @@
   <title>Admin | Chichi Safaris</title>
   <link rel="icon" href="logo.jpg" type="image/jpeg" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
-    body { background: var(--cream); min-height: 100vh; }
-    .admin-wrap {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 2rem 1rem 4rem;
-    }
-    .admin-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-top: 1rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .setup-banner {
-      background: #fff3cd;
-      border: 2px solid #c4a35a;
-      border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    .setup-banner h3 {
-      font-family: var(--font-display);
-      color: var(--dark);
-      margin-bottom: 0.5rem;
-      font-size: 1.15rem;
-    }
-    .setup-banner code {
-      background: rgba(0,0,0,0.06);
-      padding: 0.15rem 0.4rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-    }
+    body { background: var(--cream, #f3e9d2); min-height: 100vh; }
+    .admin-wrap { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-top: 1rem; flex-wrap: wrap; gap: 1rem; }
+    .setup-banner { background: #fff3cd; border: 2px solid #c4a35a; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; font-size: 0.95rem; }
     .setup-banner.hidden { display: none; }
-    .auth-bar {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(196, 163, 90, 0.2);
-    }
-    .auth-bar h2 {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      margin-bottom: 0.75rem;
-      color: var(--dark);
-    }
-    .auth-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: flex-end;
-    }
-    .auth-row .form-group {
-      margin-bottom: 0;
-      flex: 1;
-      min-width: 160px;
-    }
-    .card-panel {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.75rem;
-      margin-bottom: 1.75rem;
-      border: 1px solid rgba(196, 163, 90, 0.2);
-    }
-    .card-panel h2 {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      margin-bottom: 0.5rem;
-      color: var(--dark);
-    }
-    .card-panel .hint {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 0.35rem;
-      color: var(--muted);
-    }
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1px solid #d4c9b0;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 1rem;
-      background: var(--cream);
-    }
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-    }
-    .status {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      padding: 0.6rem 0.9rem;
-      border-radius: 6px;
-      display: none;
-    }
+    .auth-bar, .card-panel { background: #fff; border-radius: 12px; box-shadow: 0 12px 40px rgba(26,36,24,0.15); padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(196,163,90,0.2); }
+    .auth-bar h2, .card-panel h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; margin-bottom: 0.75rem; color: #1a2418; }
+    .auth-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+    .auth-row .form-group { margin-bottom: 0; flex: 1; min-width: 160px; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; color: #5c5348; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid #d4c9b0; border-radius: 8px; font-family: inherit; font-size: 1rem; background: #faf6ec; box-sizing: border-box; }
+    .status { margin-top: 0.75rem; font-size: 0.9rem; padding: 0.6rem 0.9rem; border-radius: 6px; display: none; }
     .status.success { display: block; background: #e8f5e9; color: #2e7d32; }
     .status.error { display: block; background: #fce4ec; color: #c62828; }
     .status.info { display: block; background: #e3f2fd; color: #1565c0; }
-    .preview-box {
-      margin-top: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .preview-box img, .preview-box video {
-      max-width: 160px;
-      max-height: 120px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    .list-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid #eee;
-      font-size: 0.95rem;
-      gap: 0.75rem;
-    }
-    .list-item:last-child { border-bottom: none; }
-    .btn-danger {
-      background: #c62828;
-      color: #fff;
-      border: none;
-      padding: 0.35rem 0.8rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .btn-danger:hover { background: #b71c1c; }
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      padding: 0.55rem 1.2rem;
-      border: 2px solid var(--dark);
-      background: transparent;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--dark);
-      transition: all 0.2s;
-    }
-    .tab-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-    .tab-btn.active {
-      background: var(--dark);
-      color: var(--logo-cream);
-      border-color: var(--dark);
-    }
+    .preview-box { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .preview-box img, .preview-box video { max-width: 160px; max-height: 120px; border-radius: 8px; object-fit: cover; }
+    .list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #eee; gap: 0.75rem; font-size: 0.95rem; }
+    .btn-danger { background: #c62828; color: #fff; border: none; padding: 0.35rem 0.8rem; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab-btn { padding: 0.55rem 1.2rem; border: 2px solid #1a2418; background: transparent; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.9rem; color: #1a2418; }
+    .tab-btn.active { background: #1a2418; color: #f3e9d2; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-    .user-bar {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
+    .user-bar { font-size: 0.9rem; color: #5c5348; margin-bottom: 0.5rem; }
     .user-bar.logged-in { color: #2e7d32; font-weight: 600; }
-    .section-target {
-      display: inline-block;
-      background: var(--dark);
-      color: var(--logo-cream);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 50px;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-    }
+    .hint { font-size: 0.9rem; color: #5c5348; margin-bottom: 1.25rem; }
+    .section-target { display: inline-block; background: #1a2418; color: #f3e9d2; font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: 50px; margin-left: 0.5rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; font-weight: 600; border-radius: 50px; border: 2px solid transparent; cursor: pointer; text-decoration: none; font-size: 0.95rem; }
+    .btn-gold { background: #c4a35a; color: #1a2418; border-color: #c4a35a; }
+    .btn-outline-dark { background: transparent; color: #1a2418; border-color: #1a2418; }
+    .btn.full { width: 100%; }
+    .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: inherit; }
+    .logo-img { height: 48px; width: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #c4a35a; }
+    .logo-text { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; letter-spacing: 0.06em; }
+    .logo-sub { font-size: 0.65rem; letter-spacing: 0.28em; color: #c4a35a; text-transform: uppercase; font-weight: 600; display: block; }
   </style>
   <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
@@ -210,26 +52,20 @@
   <div class="admin-wrap">
     <div class="admin-header">
       <a href="index.html" class="logo">
-        <img src="logo.jpg" alt="Chichi Safaris" class="logo-img" />
-        <div class="logo-text-wrap">
-          <span class="logo-text" style="color: var(--dark);">CHICHI</span>
+        <img src="logo.jpg" alt="Chichi Safaris" class="logo-img" onerror="this.style.display='none'" />
+        <div>
+          <span class="logo-text" style="color:#1a2418;">CHICHI</span>
           <span class="logo-sub">ADMIN</span>
         </div>
       </a>
-      <a href="index.html" class="btn btn-outline-dark" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">← Back to site</a>
+      <a href="index.html" class="btn btn-outline-dark" style="padding:0.5rem 1.2rem;font-size:0.85rem;">← Back to site</a>
     </div>
 
-    <!-- Setup banner (shown when config is still placeholder) -->
-    <div id="setup-banner" class="setup-banner">
-      <h3>⚠ Setup required before uploads work</h3>
-      <p>
-        Edit <code>js/firebase-config.js</code> and replace the placeholders with your
-        <strong>Firebase</strong> project keys and <strong>Cloudinary</strong> cloud name + unsigned upload preset.
-        Also enable Email/Password login in Firebase and create an admin user.
-      </p>
+    <div id="setup-banner" class="setup-banner hidden">
+      <h3>⚠ Setup required</h3>
+      <p>Firebase / Cloudinary keys missing.</p>
     </div>
 
-    <!-- Always-visible login bar -->
     <div class="auth-bar">
       <h2>1. Admin Login</h2>
       <p id="auth-status-text" class="user-bar">Not logged in — log in to save itineraries &amp; gallery items.</p>
@@ -250,28 +86,19 @@
       </form>
     </div>
 
-    <!-- Upload sections – ALWAYS VISIBLE -->
-    <h2 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:1rem;color:var(--dark);">
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;color:#1a2418;">
       2. Upload content to website sections
     </h2>
 
     <div class="tabs">
-      <button class="tab-btn active" data-tab="itinerary">Itineraries → Safaris</button>
-      <button class="tab-btn" data-tab="media">Photos &amp; Videos → Gallery</button>
-      <button class="tab-btn" data-tab="manage">Manage uploaded</button>
+      <button type="button" class="tab-btn active" data-tab="itinerary">Itineraries → Safaris</button>
+      <button type="button" class="tab-btn" data-tab="media">Photos &amp; Videos → Gallery</button>
+      <button type="button" class="tab-btn" data-tab="manage">Manage uploaded</button>
     </div>
 
-    <!-- TAB: Itineraries → goes to #safaris on the public site -->
     <div id="tab-itinerary" class="tab-content active card-panel">
-      <h2>
-        Upload Safari Itinerary
-        <span class="section-target">saves to Safaris section</span>
-      </h2>
-      <p class="hint">
-        Cover image is stored on <strong>Cloudinary</strong>.
-        Title, description, duration &amp; price are saved to Firestore collection <code>itineraries</code>
-        and appear on the public site under <strong>Safaris</strong>.
-      </p>
+      <h2>Upload Safari Itinerary <span class="section-target">Safaris section</span></h2>
+      <p class="hint">Image → Cloudinary. Data → Firestore <code>itineraries</code>.</p>
       <form id="itinerary-form">
         <div class="form-group">
           <label>Title</label>
@@ -279,7 +106,7 @@
         </div>
         <div class="form-group">
           <label>Description</label>
-          <textarea id="it-description" rows="3" required placeholder="Short description of the safari…"></textarea>
+          <textarea id="it-description" rows="3" required placeholder="Short description…"></textarea>
         </div>
         <div class="form-group">
           <label>Duration</label>
@@ -290,49 +117,269 @@
           <input type="text" id="it-price" required placeholder="e.g. From $2,850" />
         </div>
         <div class="form-group">
-          <label>Cover Image (Cloudinary)</label>
-          <button type="button" id="upload-itinerary-image" class="btn btn-outline-dark" style="width:auto;">
-            Choose &amp; Upload Image
-          </button>
+          <label>Cover Image</label>
+          <button type="button" id="upload-itinerary-image" class="btn btn-outline-dark">Choose &amp; Upload Image</button>
           <input type="hidden" id="it-image-url" />
           <div id="it-image-preview" class="preview-box"></div>
         </div>
-        <button type="submit" class="btn btn-gold full" style="margin-top:0.5rem;">
-          Save Itinerary to Safaris section
-        </button>
+        <button type="submit" class="btn btn-gold full">Save Itinerary to Safaris section</button>
         <div id="itinerary-status" class="status"></div>
       </form>
     </div>
 
-    <!-- TAB: Media → goes to #gallery on the public site -->
     <div id="tab-media" class="tab-content card-panel">
-      <h2>
-        Upload Photos or Videos
-        <span class="section-target">saves to Gallery section</span>
-      </h2>
-      <p class="hint">
-        Files are stored on <strong>Cloudinary</strong>.
-        URLs are saved to Firestore collection <code>gallery</code>
-        and appear on the public site under <strong>Gallery</strong>.
-      </p>
-      <button type="button" id="upload-gallery-media" class="btn btn-gold">
-        Choose &amp; Upload Photos / Videos
-      </button>
+      <h2>Upload Photos or Videos <span class="section-target">Gallery section</span></h2>
+      <p class="hint">Files → Cloudinary. Metadata → Firestore <code>gallery</code>.</p>
+      <button type="button" id="upload-gallery-media" class="btn btn-gold">Choose &amp; Upload Photos / Videos</button>
       <div id="media-preview" class="preview-box"></div>
       <div id="media-status" class="status"></div>
     </div>
 
-    <!-- TAB: Manage -->
     <div id="tab-manage" class="tab-content card-panel">
       <h2>Manage uploaded content</h2>
-      <p class="hint">Delete items here to remove them from the public website.</p>
-      <h3 style="font-size:1.05rem;margin:1rem 0 0.5rem;color:var(--dark);">Itineraries (Safaris section)</h3>
-      <div id="itineraries-list"><p style="opacity:0.6">Log in and upload to see items here.</p></div>
-      <h3 style="font-size:1.05rem;margin:1.5rem 0 0.5rem;color:var(--dark);">Gallery items</h3>
-      <div id="gallery-list"><p style="opacity:0.6">Log in and upload to see items here.</p></div>
+      <h3 style="font-size:1.05rem;margin:1rem 0 0.5rem;">Itineraries</h3>
+      <div id="itineraries-list"><p style="opacity:0.6">Log in to see items.</p></div>
+      <h3 style="font-size:1.05rem;margin:1.5rem 0 0.5rem;">Gallery</h3>
+      <div id="gallery-list"><p style="opacity:0.6">Log in to see items.</p></div>
     </div>
   </div>
 
-  <script type="module" src="js/admin.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC8DBBtpGJZbZ4Pc-Sv1pd6agiMCFA8_nM",
+      authDomain: "chichi-811d8.firebaseapp.com",
+      projectId: "chichi-811d8",
+      storageBucket: "chichi-811d8.firebasestorage.app",
+      messagingSenderId: "728136637083",
+      appId: "1:728136637083:web:0ed308ae030a703a3d043e",
+      measurementId: "G-Q3GQ4MWHLK"
+    };
+
+    const cloudinaryConfig = {
+      cloudName: "ziudh5iv",
+      uploadPreset: "chichi_gallery",
+      itineraryFolder: "chichi/itineraries",
+      galleryFolder: "chichi/gallery"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+
+    function showStatus(el, msg, type) {
+      if (!el) return;
+      el.textContent = msg;
+      el.className = "status " + type;
+    }
+
+    function escapeHtml(str) {
+      const d = document.createElement("div");
+      d.textContent = str || "";
+      return d.innerHTML;
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+      const statusText = document.getElementById("auth-status-text");
+      const loginBtn = document.getElementById("login-btn");
+      const logoutBtn = document.getElementById("logout-btn");
+      if (user) {
+        statusText.textContent = "Logged in as " + user.email;
+        statusText.classList.add("logged-in");
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        document.getElementById("email").style.display = "none";
+        document.getElementById("password").style.display = "none";
+        loadManageLists();
+      } else {
+        statusText.textContent = "Not logged in — log in to save itineraries & gallery items.";
+        statusText.classList.remove("logged-in");
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+        document.getElementById("email").style.display = "";
+        document.getElementById("password").style.display = "";
+      }
+    });
+
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = document.getElementById("login-status");
+      showStatus(status, "Signing in…", "info");
+      try {
+        await signInWithEmailAndPassword(
+          auth,
+          document.getElementById("email").value.trim(),
+          document.getElementById("password").value
+        );
+        showStatus(status, "Logged in!", "success");
+      } catch (err) {
+        showStatus(status, err.message, "error");
+      }
+    });
+
+    document.getElementById("logout-btn").addEventListener("click", () => signOut(auth));
+
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+      });
+    });
+
+    let itineraryWidget = null;
+    document.getElementById("upload-itinerary-image").addEventListener("click", () => {
+      if (!itineraryWidget) {
+        itineraryWidget = cloudinary.createUploadWidget(
+          {
+            cloudName: cloudinaryConfig.cloudName,
+            uploadPreset: cloudinaryConfig.uploadPreset,
+            folder: cloudinaryConfig.itineraryFolder,
+            sources: ["local", "url", "camera"],
+            multiple: false,
+            maxFiles: 1,
+            resourceType: "image"
+          },
+          (error, result) => {
+            if (!error && result && result.event === "success") {
+              document.getElementById("it-image-url").value = result.info.secure_url;
+              document.getElementById("it-image-preview").innerHTML =
+                `<img src="${result.info.secure_url}" alt="Preview" />`;
+            }
+          }
+        );
+      }
+      itineraryWidget.open();
+    });
+
+    document.getElementById("itinerary-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById("itinerary-status");
+      if (!currentUser) {
+        showStatus(statusEl, "Please log in first.", "error");
+        return;
+      }
+      const imageUrl = document.getElementById("it-image-url").value;
+      if (!imageUrl) {
+        showStatus(statusEl, "Upload a cover image first.", "error");
+        return;
+      }
+      showStatus(statusEl, "Saving…", "info");
+      try {
+        await addDoc(collection(db, "itineraries"), {
+          title: document.getElementById("it-title").value.trim(),
+          description: document.getElementById("it-description").value.trim(),
+          duration: document.getElementById("it-duration").value.trim(),
+          price: document.getElementById("it-price").value.trim(),
+          imageUrl,
+          createdAt: serverTimestamp()
+        });
+        showStatus(statusEl, "Saved to Safaris section!", "success");
+        e.target.reset();
+        document.getElementById("it-image-url").value = "";
+        document.getElementById("it-image-preview").innerHTML = "";
+        loadManageLists();
+      } catch (err) {
+        showStatus(statusEl, err.message, "error");
+      }
+    });
+
+    let galleryWidget = null;
+    document.getElementById("upload-gallery-media").addEventListener("click", () => {
+      if (!currentUser) {
+        alert("Please log in first.");
+        return;
+      }
+      if (!galleryWidget) {
+        galleryWidget = cloudinary.createUploadWidget(
+          {
+            cloudName: cloudinaryConfig.cloudName,
+            uploadPreset: cloudinaryConfig.uploadPreset,
+            folder: cloudinaryConfig.galleryFolder,
+            sources: ["local", "url", "camera"],
+            multiple: true,
+            maxFiles: 10,
+            resourceType: "auto"
+          },
+          async (error, result) => {
+            if (!error && result && result.event === "success") {
+              const info = result.info;
+              const isVideo = info.resource_type === "video";
+              try {
+                await addDoc(collection(db, "gallery"), {
+                  url: info.secure_url,
+                  publicId: info.public_id,
+                  type: isVideo ? "video" : "image",
+                  createdAt: serverTimestamp()
+                });
+                showStatus(document.getElementById("media-status"), (isVideo ? "Video" : "Image") + " saved!", "success");
+                const preview = document.getElementById("media-preview");
+                if (isVideo) preview.insertAdjacentHTML("beforeend", `<video src="${info.secure_url}" controls muted></video>`);
+                else preview.insertAdjacentHTML("beforeend", `<img src="${info.secure_url}" alt="" />`);
+                loadManageLists();
+              } catch (err) {
+                showStatus(document.getElementById("media-status"), err.message, "error");
+              }
+            }
+          }
+        );
+      }
+      galleryWidget.open();
+    });
+
+    async function loadManageLists() {
+      if (!currentUser) return;
+      const itList = document.getElementById("itineraries-list");
+      const gList = document.getElementById("gallery-list");
+      try {
+        const snap = await getDocs(query(collection(db, "itineraries"), orderBy("createdAt", "desc")));
+        if (snap.empty) itList.innerHTML = "<p style='opacity:0.6'>No itineraries yet.</p>";
+        else {
+          itList.innerHTML = "";
+          snap.forEach((d) => {
+            const data = d.data();
+            const row = document.createElement("div");
+            row.className = "list-item";
+            row.innerHTML = `<span><strong>${escapeHtml(data.title)}</strong> — ${escapeHtml(data.duration)} · ${escapeHtml(data.price)}</span>
+              <button type="button" class="btn-danger" data-col="itineraries" data-id="${d.id}">Delete</button>`;
+            itList.appendChild(row);
+          });
+        }
+      } catch (err) {
+        itList.innerHTML = `<p class="status error" style="display:block">${err.message}</p>`;
+      }
+      try {
+        const snap = await getDocs(query(collection(db, "gallery"), orderBy("createdAt", "desc")));
+        if (snap.empty) gList.innerHTML = "<p style='opacity:0.6'>No gallery items yet.</p>";
+        else {
+          gList.innerHTML = "";
+          snap.forEach((d) => {
+            const data = d.data();
+            const row = document.createElement("div");
+            row.className = "list-item";
+            row.innerHTML = `<span>${data.type}</span>
+              <button type="button" class="btn-danger" data-col="gallery" data-id="${d.id}">Delete</button>`;
+            gList.appendChild(row);
+          });
+        }
+      } catch (err) {
+        gList.innerHTML = `<p class="status error" style="display:block">${err.message}</p>`;
+      }
+      document.querySelectorAll(".btn-danger").forEach((btn) => {
+        btn.onclick = async () => {
+          if (!confirm("Delete?")) return;
+          await deleteDoc(doc(db, btn.dataset.col, btn.dataset.id));
+          loadManageLists();
+        };
+      });
+    }
+  </script>
 </body>
 </html>
